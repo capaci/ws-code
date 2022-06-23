@@ -2,6 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import helloWorld from './commands/HelloWorld';
+import newRequest from './commands/NewRequest';
 import { CommandT } from './commands/CommandT';
 
 
@@ -14,12 +15,13 @@ export function activate(context: vscode.ExtensionContext) {
 	console.log('Congratulations, your extension "ws-code" is now active!');
 
 	const commands: Array<CommandT> = [
-		helloWorld
+		helloWorld,
+		newRequest
 	];
 	
 	const disposables = commands.map(element => vscode.commands.registerCommand(
-			helloWorld.id,
-			helloWorld.run(vscode)
+			element.id,
+			element.run(context)
 	));
 	
 	context.subscriptions.push(...disposables);
